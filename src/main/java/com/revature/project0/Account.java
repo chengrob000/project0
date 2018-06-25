@@ -1,10 +1,23 @@
 package com.revature.project0;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable{
+
+	private static final long serialVersionUID = 6419218113577619357L;
 	private double bal = 0.0;
-	private boolean isApproved = false;
+	private Boolean isActive = Boolean.FALSE;
+	
+	public Boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	private String accNum;
-	private User user;
+
 	
 	public Account(String accNum) {
 		this.accNum = accNum;
@@ -28,7 +41,7 @@ public class Account {
 		if (bal >= amnt) {
 			bal = bal - amnt;
 			System.out.println("Your withdrawel was successful. "
-					+ "Your balance is now: " + bal);
+				+ "\nYour balance is now: " + bal);
 		} else {
 			// overdraft
 			System.out.println("Insufficient Funds");
