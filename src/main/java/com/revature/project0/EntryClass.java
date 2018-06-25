@@ -2,8 +2,6 @@ package com.revature.project0;
 
 
 import java.util.Scanner;
-
-
 import org.apache.log4j.Logger;
 
 public class EntryClass {
@@ -25,7 +23,7 @@ public class EntryClass {
 				loginFlow();
 				break;
 			case 3:
-				System.out.println("Perform quit case.");
+				logger.info("Perform quit case.");
 				break breakhere;
 			default:
 				// The user input an unexpected choice.
@@ -53,8 +51,9 @@ public class EntryClass {
 						break;
 					case 2:
 						adminBanAcc();
+						break;
 					case 3:
-						System.out.println("Perform quit case.");
+						logger.info("Perform quit case.");
 						break breakAdmin;
 					default: // The user input an unexpected choice.
 					}
@@ -69,8 +68,11 @@ public class EntryClass {
 					case 2:
 						userWithdraw(u1);
 						break;
-					case 3:
-						System.out.println("Perform quit case.");
+					case 3: 
+						userBalanceCheck(u1);
+						break;	
+					case 4:
+						logger.info("Perform quit case.");
 						break breakUser;
 					default: // The user inputs an unexpected choice
 					}
@@ -100,6 +102,15 @@ public class EntryClass {
 			Utility.persistObj(u1);
 			logger.info(u1.getAccount().getAccNum() + " | " + u1.getAccount().getBal());
 		} else {
+			System.out.println("You account is not activated, please contact admin.");
+		}
+	}
+	private static void userBalanceCheck(User u1) {
+		if (u1.getAccount().isActive()) {
+			System.out.println("Your balance is: $ " + u1.getAccount().getBal());
+			Utility.persistObj(u1);
+			logger.info(u1.getAccount().getAccNum() + " | " + u1.getAccount().getBal());
+		} else  {
 			System.out.println("You account is not activated, please contact admin.");
 		}
 	}
@@ -161,7 +172,8 @@ public class EntryClass {
 		System.out.println("-------------------------\n");
 		System.out.println("1 - Deposit to account");
 		System.out.println("2 - Withdraw from account");
-		System.out.println("3 - Quit");
+		System.out.println("3 - Check account balance");
+		System.out.println("4 - Quit");
 
 		selection = in.nextInt();
 		return selection;
